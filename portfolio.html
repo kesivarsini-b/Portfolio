@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KESIVARSINI | AI/ML Engineer Portfolio</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =====================
+           GLOBAL STYLES
+        ====================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #eaeaea;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        section {
+            padding: 80px 10%;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #cfcfcf;
+            line-height: 1.7;
+        }
+
+        /* =====================
+           ANIMATED BACKGROUND
+        ====================== */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* =====================
+           NAVBAR
+        ====================== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 10%;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00ffd5;
+        }
+
+        /* =====================
+           HERO SECTION
+        ====================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #00ffd5;
+        }
+
+        .hero h3 {
+            font-size: 22px;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 30px;
+            background: #00ffd5;
+            color: #000;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 213, 0.3);
+        }
+
+        /* =====================
+           ABOUT SECTION
+        ====================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .about-box h3 {
+            margin-bottom: 15px;
+        }
+
+        /* =====================
+           SKILLS
+        ====================== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .skill-card h4 {
+            margin-bottom: 10px;
+            color: #00ffd5;
+        }
+
+        /* =====================
+           TIMELINE
+        ====================== */
+        .timeline {
+            border-left: 2px solid #00ffd5;
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+        }
+
+        .timeline-item h4 {
+            color: #00ffd5;
+        }
+
+        /* =====================
+           PROJECTS
+        ====================== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* =====================
+           FOOTER
+        ====================== */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* =====================
+           RESPONSIVE
+        ====================== */
+        @media (max-width: 900px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<!-- =====================
+     NAVBAR
+===================== -->
+<nav>
+    <div class="logo">KESIVARSINI</div>
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#timeline">Journey</a></li>
+        <li><a href="#projects">Projects</a></li>
+    </ul>
+</nav>
+
+<!-- =====================
+     HERO
+===================== -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Hello, I'm <span>KESIVARSINI</span></h1>
+        <h3>Aspiring AI/ML Engineer • Full Stack Developer • Vibe Coder</h3>
+        <p>
+            I am an M.Tech Computer Science student at Sri Ramakrishna Engineering College (2025–2030),
+            deeply passionate about Artificial Intelligence, Machine Learning, and building intelligent
+            real-world systems using clean, efficient code.
+        </p>
+        <a href="#about" class="btn">Explore More</a>
+    </div>
+</section>
+
+<!-- =====================
+     ABOUT
+===================== -->
+<section id="about">
+    <h2>About Me</h2>
+    <div class="about-grid">
+        <div class="about-box">
+            <h3>Who I Am</h3>
+            <p>
+                I am an enthusiastic and disciplined learner with a strong foundation in
+                computer science, problem-solving, and logical thinking.
+                I enjoy exploring AI-powered development and coding alongside modern tools,
+                including AI-assisted workflows.
+            </p>
+            <p>
+                I believe in continuous improvement, curiosity-driven learning,
+                and building solutions that are both meaningful and scalable.
+            </p>
+        </div>
+
+        <div class="about-box">
+            <h3>Academic Highlights</h3>
+            <p>🎓 M.Tech Integrated CSE (2025–2030) – SREC</p>
+            <p>📊 First Semester GPA: <strong>8.65</strong></p>
+            <p>🏫 HLC Score: <strong>94%</strong></p>
+            <p>💻 Strong background in programming & system fundamentals</p>
+        </div>
+    </div>
+</section>
+
+<!-- =====================
+     SKILLS
+===================== -->
+<section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-card">
+            <h4>Programming</h4>
+            <p>C, C++, Python (Advanced), Java (Learning)</p>
+        </div>
+        <div class="skill-card">
+            <h4>AI & ML</h4>
+            <p>Machine Learning basics, Python for AI, Model Thinking</p>
+        </div>
+        <div class="skill-card">
+            <h4>DSA</h4>
+            <p>Arrays, Linked Lists, Recursion, Problem Solving</p>
+        </div>
+        <div class="skill-card">
+            <h4>Full Stack</h4>
+            <p>HTML, CSS, JavaScript, Backend Fundamentals</p>
+        </div>
+        <div class="skill-card">
+            <h4>Tools</h4>
+            <p>Git, VS Code, MS Office, AI Coding Tools</p>
+        </div>
+        <div class="skill-card">
+            <h4>Soft Skills</h4>
+            <p>Communication, Adaptability, Time Management</p>
+        </div>
+    </div>
+</section>
+
+<!-- =====================
+     TIMELINE
+===================== -->
+<section id="timeline">
+    <h2>My Journey</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h4>Schooling</h4>
+            <p>Excelled academically with 94% and gained proficiency in MS Office.</p>
+        </div>
+        <div class="timeline-item">
+            <h4>College – Year 1</h4>
+            <p>Built strong fundamentals in C, Python, DSA, and system concepts.</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Current Focus</h4>
+            <p>AI/ML, Full Stack Development, and coding with AI assistance.</p>
+        </div>
+        <div class="timeline-item">
+            <h4>Future Goal</h4>
+            <p>Become a skilled AI/ML Engineer contributing to impactful projects.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =====================
+     PROJECTS
+===================== -->
+<section id="projects">
+    <h2>Projects & Practice</h2>
+    <div class="projects-grid">
+        <div class="project-card">
+            <h3>Portfolio Website</h3>
+            <p>Personal responsive portfolio with animated background.</p>
+        </div>
+        <div class="project-card">
+            <h3>Python Mini Projects</h3>
+            <p>Logic-based programs, automation scripts, and problem solvers.</p>
+        </div>
+        <div class="project-card">
+            <h3>AI Learning Projects</h3>
+            <p>Exploring ML models, datasets, and prediction systems.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 KESIVARSINI | Built with passion, logic & AI ✨
+</footer>
+
+<!-- =====================
+     JAVASCRIPT
+===================== -->
+<script>
+    const canvas = document.getElementById("bg");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    for (let i = 0; i < 120; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            speed: Math.random() * 1.5 + 0.3,
+            size: Math.random() * 2 + 1
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00ffd5";
+
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            p.y += p.speed;
+            if (p.y > canvas.height) {
+                p.y = 0;
+                p.x = Math.random() * canvas.width;
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+</script>
+
+</body>
+</html>
